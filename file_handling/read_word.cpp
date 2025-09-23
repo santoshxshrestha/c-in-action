@@ -4,10 +4,10 @@ using namespace std;
 
 int main() {
   ifstream file("example.txt");
-  string line;
+  string word;
 
-  file >> line;
-  cout << line << endl;
+  file >> word;
+  cout << word << endl;
 
   file.close();
   cout << "word read successfully." << endl;
