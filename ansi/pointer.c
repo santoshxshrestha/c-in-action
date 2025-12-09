@@ -19,5 +19,16 @@ int main() {
       printf("Element %d: %d\n", i, *(ptr + i));
     }
   }
+
+  // using pointer to save memory
+  {
+    // // still this will take the 25*3 = 75 bytes of memory
+    // char name[3][25] = {"Alice", "Bob", "Charlie"};
+    // by doing this way it will take only 8*3 = 24 bytes of memory
+    char *name[] = {"Alice", "Bob", "Charlie"};
+    for (int i = 0; i < 3; i++) {
+      printf("Name %d: %s\n", i, name[i]);
+    }
+  }
   return 0;
 }
