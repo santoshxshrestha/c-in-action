@@ -9,5 +9,15 @@ int main() {
   printf("Pointer address: %p\n", pointer_val);
   pointer_val++;
   printf("Pointer address after increment: %p\n", pointer_val);
+  {
+    int array[10] = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
+    int *ptr = array; // Point to the first element of the array
+    // Access array elements using pointer arithmetic
+    for (int i = 0; i < 10; i++) {
+      // Accessing array elements using pointer arithmetic is more fast compared
+      // to array indexing
+      printf("Element %d: %d\n", i, *(ptr + i));
+    }
+  }
   return 0;
 }
