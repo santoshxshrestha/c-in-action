@@ -24,6 +24,9 @@ int isempty(stack *stack) {
 
 void push(stack *stack, int data) {
   int tos = stack->tos;
+  if (tos == -1) {
+    tos++;
+  }
   if (!isfull(stack)) {
     stack->items[tos] = data;
     tos++;
@@ -52,7 +55,14 @@ void isfull_test() {
   assert(isfull(&my_stack) == true);
 }
 
-void push_and_pop_test() {
+void push_test() {
+  stack my_stack;
+  my_stack.tos = -1;
+  push(&my_stack, 12);
+  assert(my_stack.items[my_stack.tos - 1] == 12);
+}
+
+void pop_test() {
   stack my_stack;
   my_stack.tos = -1;
   push(&my_stack, 12);
@@ -62,6 +72,7 @@ void push_and_pop_test() {
 int main() {
   isempty_test();
   isfull_test();
-  push_and_pop_test();
+  push_test();
+  pop_test();
   return 0;
 }
