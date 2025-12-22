@@ -23,24 +23,24 @@ int isempty(stack *stack) {
 }
 
 void push(stack *stack, int data) {
-  int tos = stack->tos;
-  if (tos == -1) {
-    tos++;
+  if (stack->tos == -1) {
+    stack->tos++;
   }
   if (!isfull(stack)) {
-    stack->items[tos] = data;
-    tos++;
+    stack->items[stack->tos] = data;
+    stack->tos++;
   }
 }
 
 int pop(stack *stack) {
   int tos = stack->tos;
   if (!isempty(stack)) {
-    tos--;
-    return stack->items[tos];
+    stack->tos--;
+    return stack->items[stack->tos];
   } else {
     printf("Error: couldn't pop the content");
   }
+  return 0;
 }
 
 void isempty_test() {
