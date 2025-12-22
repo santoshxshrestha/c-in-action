@@ -23,24 +23,20 @@ int isempty(stack *stack) {
 }
 
 void push(stack *stack, int data) {
-  if (stack->tos == -1) {
-    stack->tos++;
-  }
   if (!isfull(stack)) {
-    stack->items[stack->tos] = data;
     stack->tos++;
+    stack->items[stack->tos] = data;
   }
 }
 
 int pop(stack *stack) {
-  int tos = stack->tos;
   if (!isempty(stack)) {
+    int content = stack->items[stack->tos];
     stack->tos--;
-    return stack->items[stack->tos];
+    return content;
   } else {
-    printf("Error: couldn't pop the content");
+    return 0;
   }
-  return 0;
 }
 
 void isempty_test() {
@@ -51,7 +47,7 @@ void isempty_test() {
 
 void isfull_test() {
   stack my_stack;
-  my_stack.tos = 10;
+  my_stack.tos = MAXSIZE;
   assert(isfull(&my_stack) == true);
 }
 
@@ -59,7 +55,7 @@ void push_test() {
   stack my_stack;
   my_stack.tos = -1;
   push(&my_stack, 12);
-  assert(my_stack.items[my_stack.tos - 1] == 12);
+  assert(my_stack.items[my_stack.tos] == 12);
 }
 
 void pop_test() {
@@ -69,7 +65,37 @@ void pop_test() {
   assert(pop(&my_stack) == 12);
 }
 
+void push_multiple_test() {
+  stack my_stack;
+  my_stack.tos = -1;
+  for (int i = 0; i <= MAXSIZE; i++) {
+    push(&my_stack, i);
+    assert(my_stack.items[my_stack.tos] == i);
+  }
+  assert(isfull(&my_stack) == true);
+}
+
+void pop_empty_test() {
+  stack my_stack;
+  my_stack.tos = -1;
+  int result = pop(&my_stack);
+  assert(result == 0);
+}
+
+void push_pop_sequence_test() {
+  stack my_stack;
+  my_stack.tos = -1;
+  push(&my_stack, 5);
+  push(&my_stack, 10);
+  assert(pop(&my_stack) == 10);
+  assert(pop(&my_stack) == 5);
+  assert(isempty(&my_stack) == true);
+}
+
 int main() {
+  push_multiple_test();
+  pop_empty_test();
+  push_pop_sequence_test();
   isempty_test();
   isfull_test();
   push_test();
